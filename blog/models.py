@@ -1,4 +1,5 @@
 from django.db import models
+from ckeditor_uploader.fields import  RichTextUploadingField
 
 # Create your models here.
 from django.utils.safestring import mark_safe
@@ -40,7 +41,7 @@ class Blog(models.Model):
     image = models.ImageField(blank=True,upload_to='images/')
     status = models.CharField(max_length=10,choices= STATUS) #açılan kutuda seçim olanı gelmesi için
     category = models.ForeignKey(Category,on_delete=models.CASCADE) #ilişkilendirme category ile
-    detail = models.TextField()
+    detail = RichTextUploadingField()
     slug = models.SlugField() #metinsel olarak çağırmak için
     file = models.FileField(blank=True,upload_to='files/')
     create_at = models.DateTimeField(auto_now_add=True)

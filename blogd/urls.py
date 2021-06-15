@@ -23,6 +23,7 @@ urlpatterns = [
     path('', include('home.urls')), #home app urli tanıt
     path('home/', include('home.urls')), #home app urli tanıt
     path('admin/', admin.site.urls),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 if settings.DEBUG: #new resimleri göstermek için yol
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

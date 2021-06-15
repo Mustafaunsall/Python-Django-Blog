@@ -29,7 +29,7 @@ class Blog(models.Model):
         ('True','Evet'),
         ('False','Hayır'),
     }
-    title = models.CharField(max_length=30)
+    title = models.CharField(max_length=100)
     description = models.CharField(max_length=255)
     keywords = models.CharField(max_length=255)
     image = models.ImageField(blank=True,upload_to='images/')
@@ -40,3 +40,14 @@ class Blog(models.Model):
     file = models.FileField(blank=True,upload_to='files/')
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title #dönderiyor
+
+class Images(models.Model):
+    blog = models.ForeignKey(Blog,on_delete=models.CASCADE) #ilişkilendirme category ile
+    title = models.CharField(max_length=50,blank=True)
+    image = models.ImageField(blank=True,upload_to='images/')
+
+    def __str__(self):
+        return self.title #dönderiyor

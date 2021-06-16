@@ -22,7 +22,9 @@ from home import views
 
 urlpatterns = [
     path('blog/', include('blog.urls')), #blog app urli tanıt
-    path('hakkimizda', views.hakkimizda, name='hakkimizda'),
+    path('hakkimizda/', views.hakkimizda, name='hakkimizda'),
+    path('referanslarımız/', views.referanslarımız, name='referanslarımız'),
+    path('iletişim/', views.iletişim, name='iletişim'),
     path('', include('home.urls')), #home app urli tanıt
     path('home/', include('home.urls')), #home app urli tanıt
     path('admin/', admin.site.urls),

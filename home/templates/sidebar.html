@@ -13,59 +13,63 @@
                     <span class="icon-bar"></span>
                 </button>
 
-            </div><!-- / .navbar-header -->
 
-            <!-- Navbar Links -->
+            </div><!-- / .navbar-header -->
+            <div id="responsive-nav">
+                <!-- category nav -->
+                <div class="category-nav show-on-click">
+                    <span class="category-header">Categories <i class="fa fa-list"></i></span>
+
+                    <ul class="category-list">
+
+                        <li class="dropdown side-dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Jewelry
+                                & Watches <i class="fa fa-angle-right"></i></a>
+                            <div class="custom-menu">
+                                <div class="row">
+
+
+                                    <div class="col-md-12">
+                                        <ul class="list-links">
+                                            <li>
+                                                <h3 class="list-links-title">Categories</h3></li>
+                                            <li><a href="#">Women’s Clothing</a></li>
+                                            <li><a href="#">Men’s Clothing</a></li>
+                                            <li><a href="#">Phones & Accessories</a></li>
+                                            <li><a href="#">Jewelry & Watches</a></li>
+                                            <li><a href="#">Bags & Shoes</a></li>
+                                        </ul>
+                                        <hr>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li><a href="#">Bags & Shoes</a></li>
+                        <li><a href="#">View All</a></li>
+                    </ul>
+                </div>
+                <!-- /category nav -->
+            </div>
+
+            <!-- Navbar Links----------------------------------------------- -->
             <div id="navbar" class="navbar-collapse collapse text-center">
+
+
                 <ul class="nav navbar-nav">
+
 
                     <!-- Home -->
                     <li class="dropdown ">
-                        <a href="index.html">Home</a>
+                        <a href="/">Anasayfa</a>
                     </li><!-- / Home -->
 
-
-                    <!-- Elements -->
-                    <li class="dropdown dropdown-slide">
-                        <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
-                           role="button" aria-haspopup="true" aria-expanded="false">Shop <span
-                                class="tf-ion-ios-arrow-down"></span></a>
-                        <div class="dropdown-menu">
-                            <div class="row">
-
-                                <!-- Basic -->
-                                <div class="col-lg-6 col-md-6 mb-sm-3">
-                                    <ul>
-                                        <li class="dropdown-header">Pages</li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a href="shop.html">Shop</a></li>
-                                        <li><a href="checkout.html">Checkout</a></li>
-                                        <li><a href="cart.html">Cart</a></li>
-                                        <li><a href="pricing.html">Pricing</a></li>
-                                        <li><a href="confirmation.html">Confirmation</a></li>
-
-                                    </ul>
-                                </div>
-
-                                <!-- Layout -->
-                                <div class="col-lg-6 col-md-6 mb-sm-3">
-                                    <ul>
-                                        <li class="dropdown-header">Layout</li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a href="product-single.html">Product Details</a></li>
-                                        <li><a href="shop-sidebar.html">Shop With Sidebar</a></li>
-
-                                    </ul>
-                                </div>
-
-                            </div><!-- / .row -->
-                        </div><!-- / .dropdown-menu -->
-                    </li><!-- / Elements -->
 
 
                     <!-- Pages -->
                     <li class="dropdown full-width dropdown-slide">
-                        <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
+                        <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                           data-delay="350"
                            role="button" aria-haspopup="true" aria-expanded="false">Pages <span
                                 class="tf-ion-ios-arrow-down"></span></a>
                         <div class="dropdown-menu">
@@ -110,7 +114,9 @@
                                 <!-- Mega Menu -->
                                 <div class="col-sm-3 col-xs-12">
                                     <a href="shop.html">
-                                        <img class="img-responsive" src="{% static 'img/slider/header-img.jpg'%}" alt="menu image" />
+                                        <img class="img-responsive"
+                                             src="{% static 'img/slider/header-img.jpg' %}"
+                                             alt="menu image"/>
                                     </a>
                                 </div>
                             </div><!-- / .row -->
@@ -119,32 +125,24 @@
 
 
 
-                    <!-- Blog -->
-                    <li class="dropdown dropdown-slide">
-                        <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
-                           role="button" aria-haspopup="true" aria-expanded="false">Blog <span
-                                class="tf-ion-ios-arrow-down"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
-                            <li><a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
-                            <li><a href="blog-full-width.html">Blog Full Width</a></li>
-                            <li><a href="blog-grid.html">Blog 2 Columns</a></li>
-                            <li><a href="blog-single.html">Blog Single</a></li>
-                        </ul>
-                    </li><!-- / Blog -->
-
-                    <!-- Shop -->
-                    <li class="dropdown dropdown-slide">
-                        <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
-                           role="button" aria-haspopup="true" aria-expanded="false">Elements <span
-                                class="tf-ion-ios-arrow-down"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="typography.html">Typography</a></li>
-                            <li><a href="buttons.html">Buttons</a></li>
-                            <li><a href="alerts.html">Alerts</a></li>
-                        </ul>
-                    </li><!-- / Blog -->
+                    <!-- Aboutus -->
+                    <li class="dropdown ">
+                        <a href="/hakkimizda">Hakkımızda</a>
+                    </li><!-- / Aboutus -->
+                    <!-- Refrences -->
+                    <li class="dropdown ">
+                        <a href="/referanslar">Referanslar</a>
+                    </li><!-- / Refrences -->
+                    <!-- Contact -->
+                    <li class="dropdown ">
+                        <a href="/iletişim">İletişim</a>
+                    </li><!-- / Contact -->
+                    <!-- Contact -->
+                    <li class="dropdown ">
+                        <a href="/iletişim">Faq</a>
+                    </li><!-- / Contact -->
                 </ul><!-- / .nav .navbar-nav -->
+
 
             </div>
             <!--/.navbar-collapse -->

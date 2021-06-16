@@ -18,8 +18,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+from home import views
+
 urlpatterns = [
     path('blog/', include('blog.urls')), #blog app urli tanıt
+    path('hakkimizda', views.hakkimizda, name='hakkimizda'),
     path('', include('home.urls')), #home app urli tanıt
     path('home/', include('home.urls')), #home app urli tanıt
     path('admin/', admin.site.urls),

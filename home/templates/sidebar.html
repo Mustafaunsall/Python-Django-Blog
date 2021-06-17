@@ -14,39 +14,48 @@
                 </button>
 
 
+
+
+
             </div><!-- / .navbar-header -->
             <div id="responsive-nav">
                 <!-- category nav -->
                 <div class="category-nav show-on-click">
                     <span class="category-header">Categories <i class="fa fa-list"></i></span>
+                    {% load mptt_tags %}
+
 
                     <ul class="category-list">
 
-                        <li class="dropdown side-dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Jewelry
-                                & Watches <i class="fa fa-angle-right"></i></a>
-                            <div class="custom-menu">
-                                <div class="row">
+                        {% recursetree category %}
+                            <li class="dropdown side-dropdown">
+                                <a href="/category/{{ node.slug }}" {% if not node.is_leaf_node %}
+                                   class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"{% endif %}>
+                                    {{ node.title }}{% if not node.is_leaf_node %}
+                                        <i class="fa fa-angle-right"></i>{% endif %}</a>
+                                <div class="custom-menu">
+                                    <div class="row">
 
 
-                                    <div class="col-md-12">
-                                        <ul class="list-links">
-                                            <li>
-                                                <h3 class="list-links-title">Categories</h3></li>
-                                            <li><a href="#">Women’s Clothing</a></li>
-                                            <li><a href="#">Men’s Clothing</a></li>
-                                            <li><a href="#">Phones & Accessories</a></li>
-                                            <li><a href="#">Jewelry & Watches</a></li>
-                                            <li><a href="#">Bags & Shoes</a></li>
-                                        </ul>
-                                        <hr>
+                                        <div class="col-md-12">
 
+
+                                            {% if not node.is_leaf_node %}
+                                                <ul class="list-links" class="children">
+                                                    <li><a href="">{{ children }}</a></li>
+
+                                                </ul>
+                                            {% endif %}
+                                            <hr class="hidden-md hidden-lg">
+
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li><a href="#">Bags & Shoes</a></li>
-                        <li><a href="#">View All</a></li>
+                            </li>
+
+                        {% endrecursetree %}
+
+
                     </ul>
                 </div>
                 <!-- /category nav -->
@@ -65,7 +74,6 @@
                     </li><!-- / Home -->
 
 
-
                     <!-- Pages -->
                     <li class="dropdown full-width dropdown-slide">
                         <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
@@ -75,54 +83,48 @@
                         <div class="dropdown-menu">
                             <div class="row">
 
+
                                 <!-- Introduction -->
-                                <div class="col-sm-3 col-xs-12">
-                                    <ul>
-                                        <li class="dropdown-header">Introduction</li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a href="contact.html">Contact Us</a></li>
-                                        <li><a href="about.html">About Us</a></li>
-                                        <li><a href="404.html">404 Page</a></li>
-                                        <li><a href="coming-soon.html">Coming Soon</a></li>
-                                        <li><a href="faq.html">FAQ</a></li>
-                                    </ul>
-                                </div>
+                                {% recursetree category %}
 
-                                <!-- Contact -->
-                                <div class="col-sm-3 col-xs-12">
-                                    <ul>
-                                        <li class="dropdown-header">Dashboard</li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a href="dashboard.html">User Interface</a></li>
-                                        <li><a href="order.html">Orders</a></li>
-                                        <li><a href="address.html">Address</a></li>
-                                        <li><a href="profile-details.html">Profile Details</a></li>
-                                    </ul>
-                                </div>
+                                    <div class="col-sm-3 col-xs-12">
+                                        <div class="row">
+                                            <ul>
 
-                                <!-- Utility -->
-                                <div class="col-sm-3 col-xs-12">
-                                    <ul>
-                                        <li class="dropdown-header">Utility</li>
-                                        <li role="separator" class="divider"></li>
-                                        <li><a href="login.html">Login Page</a></li>
-                                        <li><a href="signin.html">Signin Page</a></li>
-                                        <li><a href="forget-password.html">Forget Password</a></li>
-                                    </ul>
-                                </div>
 
-                                <!-- Mega Menu -->
-                                <div class="col-sm-3 col-xs-12">
-                                    <a href="shop.html">
-                                        <img class="img-responsive"
-                                             src="{% static 'img/slider/header-img.jpg' %}"
-                                             alt="menu image"/>
-                                    </a>
-                                </div>
+                                                <li class="dropdown side-dropdown">
+                                                    <a href="/category/{{ node.slug }}"
+                                                            {% if not node.is_leaf_node %}
+                                                       class="dropdown-toggle"
+                                                       data-toggle="dropdown"
+                                                       aria-expanded="true"{% endif %}>
+                                                        {{ node.title }}
+                                                    </a>
+
+                                                </li>
+
+
+                                                {% if not node.is_leaf_node %}
+                                                    <ul class="children">
+                                                        <li><a href="/category/{{ node.slug }}">{{ children }}</a></li>
+
+                                                    </ul>
+
+                                                {% endif %}
+
+
+                                            </ul>
+                                        </div>
+
+                                    </div>
+
+                                {% endrecursetree %}
+
+
                             </div><!-- / .row -->
                         </div><!-- / .dropdown-menu -->
                     </li><!-- / Pages -->
-
+                    <!-- Blog -->
 
 
                     <!-- Aboutus -->
@@ -149,3 +151,4 @@
         </div><!-- / .container -->
     </nav>
 </section>
+

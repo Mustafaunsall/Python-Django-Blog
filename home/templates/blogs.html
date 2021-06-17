@@ -1,0 +1,82 @@
+{% extends 'homebase.html' %}
+{% block title %} Category-{{ categorydata.title }} {% endblock %}
+{% block keywords %} {{ categorydata.keywords }}  {% endblock %}
+{% block decription %}  {{ categorydata.description }}  {% endblock %}
+
+{% block head %}
+    <link rel='shortcut icon' type='image/x-icon' href='{{ settings.icon.url }}'/>
+{% endblock %}
+
+{% block sidebar %}{% include 'sidebar.html' %}{% endblock %}
+
+{% block content %}
+
+    <section class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="content">
+                        <h1 class="page-name" style="color: #0c0c0c">{{categorydata.title}}</h1>
+                        <ol class="breadcrumb">
+                            <li><a href="/">Anasayfa</a></li>
+                            <li class="active">{{ categorydata.title }}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- SECTION Blogs -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- row -->
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="section-title">
+
+                                <h2 class="title">{{categorydata.title}}</h2>
+                            </div>
+
+                        </div>
+                        {% for rs in blogs %}
+
+
+
+
+                            <!-- post -->
+                            <div class="col-md-3">
+                                <div class="post post-sm">
+                                    <a class="post-img" href="/blog/{{ rs.id }}/{{ rs.slug }}"><img src="{{ rs.image.url }}" alt=""></a>
+                                    <div class="post-body">
+                                        <div class="post-category">
+                                            <a href="/blog/{{ rs.id }}/{{ rs.slug }}">{{ rs.title }}</a>
+                                        </div>
+                                        <h3 class="post-title title-sm"><a >{{ rs.description }}</a></h3>
+                                        <ul class="post-meta">
+                                            <li><a href="/blog/{{ rs.id }}/{{ rs.slug }}">by.Admin</a></li>
+                                            <li>{{ rs.create_at }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /post -->
+                        {% endfor %}
+
+
+                    </div>
+                    <!-- /row -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /BLOgs -->
+
+
+{% endblock %}

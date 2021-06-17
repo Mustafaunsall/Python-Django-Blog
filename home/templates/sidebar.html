@@ -29,7 +29,7 @@
 
                         {% recursetree category %}
                             <li class="dropdown side-dropdown">
-                                <a href="/category/{{ node.slug }}" {% if not node.is_leaf_node %}
+                                <a href="/category/{{ node.id }}/{{ node.slug }}" {% if not node.is_leaf_node %}
                                    class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"{% endif %}>
                                     {{ node.title }}{% if not node.is_leaf_node %}
                                         <i class="fa fa-angle-right"></i>{% endif %}</a>

@@ -8,29 +8,44 @@
             <div class="col-md-3">
                 <div class="footer-widget">
                     <div class="footer-logo">
-                        <a href="index.html" class="logo"><img  src="{%  static 'img/logo-alt.png'%}" alt=""></a>
+                        <!-- Site Logo -->
+                        <div class="logo text-center">
+                            <a href="/">
+                                <!-- replace logo here -->
+                                <svg width="160px" height="29px" viewBox="0 0 180 29" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                     xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-size="40"
+                                       font-family="AustinBold, Austin" font-weight="bold">
+                                        <g id="Group" transform="translate(-108.000000, -297.000000)" fill="#000000">
+                                            <text id="AVIATO">
+                                                <tspan x="104" y="325">Unsal Blogs</tspan>
+                                            </text>
+                                        </g>
+                                    </g>
+                                </svg>
+                            </a>
+                        </div>
                     </div>
-                    <p>Nec feugiat nisl pretium fusce id velit ut tortor pretium. Nisl purus in mollis nunc sed. Nunc non blandit massa enim nec.</p>
+                    <p>{{ settings.description }}</p>
                     <ul class="contact-social">
-                        <li><a href="#" class="social-facebook"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#" class="social-twitter"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#" class="social-google-plus"><i class="fa fa-google-plus"></i></a></li>
-                        <li><a href="#" class="social-instagram"><i class="fa fa-instagram"></i></a></li>
+                        <li><a href="{{ settings.facebook }}" class="social-facebook"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="{{ settings.twitter }}" class="social-twitter"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="{{ settings.instagram }}" class="social-instagram"><i class="fa fa-instagram"></i></a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="footer-widget">
                     <h3 class="footer-title">Categories</h3>
-                    <div class="category-widget">
-                        <ul>
-                            <li><a href="#">Lifestyle <span>451</span></a></li>
-                            <li><a href="#">Fashion <span>230</span></a></li>
-                            <li><a href="#">Technology <span>40</span></a></li>
-                            <li><a href="#">Travel <span>38</span></a></li>
-                            <li><a href="#">Health <span>24</span></a></li>
-                        </ul>
-                    </div>
+                    {% for rs in category %}
+                        <div class="category-widget">
+                            <ul>
+                                {% if not rs.is_leaf_node %}
+                                    <li><a href="/category/{{ rs.id }}/{{ rs.slug }}">{{ rs.title }}</a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
             <div class="col-md-3">
@@ -68,20 +83,22 @@
         </div>
         <!-- /row -->
 
+
         <!-- row -->
         <div class="footer-bottom row">
             <div class="col-md-6 col-md-push-6">
                 <ul class="footer-nav">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="contact.html">Contacts</a></li>
-                    <li><a href="#">Advertise</a></li>
-                    <li><a href="#">Privacy</a></li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/hakkimizda">About Us</a></li>
+                    <li><a href="/iletisim">Contacts</a></li>
+
                 </ul>
             </div>
             <div class="col-md-6 col-md-pull-6">
                 <div class="footer-copyright">
-
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">{{ settings.company }}</a>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 {% extends 'homebase.html' %}
 {% block title %} {{ settings.title }} {% endblock %}
-{% block keywords %} index sayfası anahtar kelimesi  {% endblock %}
-{% block decription %} index sayfası açıklama {% endblock %}
+{% block keywords %} {{ settings.keywords }}  {% endblock %}
+{% block decription %} {{ settings.decription }} {% endblock %}
 
 {% block head %}
     <link rel='shortcut icon' type='image/x-icon' href='{{ settings.icon.url }}' />

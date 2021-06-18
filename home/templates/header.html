@@ -35,14 +35,22 @@
 
                     <!-- Search -->
                     <li class="dropdown search dropdown-slide">
-                        <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
+                        <form action="/search/" method="post">
+                            {% csrf_token %}
+                        <a href="/" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"><i
                                 class="tf-ion-ios-search-strong"></i> Search</a>
                         <ul class="dropdown-menu search-dropdown">
                             <li>
-                                <form action="post"><input type="search" class="form-control" placeholder="Search..."></form>
+
+
+                                    <input type="search" class="form-control" placeholder="Search...">
+
+
                             </li>
                         </ul>
+                        </form>
                     </li><!-- / Search -->
+
 
                     <!-- Languages -->
                     <li class="commonSelect">

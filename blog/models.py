@@ -1,7 +1,9 @@
+from django.contrib.auth.models import User
 from django.db import models
 from ckeditor_uploader.fields import  RichTextUploadingField
 
 # Create your models here.
+from django.forms import ModelForm
 from django.utils.safestring import mark_safe
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
@@ -43,6 +45,7 @@ class Category(MPTTModel):
         return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
     image_tag.short_description = 'Image'
 
+
 class Blog(models.Model):
 
     STATUS = { #seçim
@@ -56,6 +59,7 @@ class Blog(models.Model):
     image = models.ImageField(blank=True,upload_to='images/')
     status = models.CharField(max_length=10,choices= STATUS) #açılan kutuda seçim olanı gelmesi için
     category = models.ForeignKey(Category,on_delete=models.CASCADE) #ilişkilendirme category ile
+    user = models.ForeignKey(User,on_delete=models.CASCADE) #ilişkilendirme user ile
     detail = RichTextUploadingField()
     slug = models.SlugField() #metinsel olarak çağırmak için
     file = models.FileField(blank=True,upload_to='files/')
@@ -80,3 +84,26 @@ class Images(models.Model):
         return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
     image_tag.short_description = 'Image'
 
+class Comment(models.Model):
+    STATUS = { #seçim
+        ('New','Yeni'),
+        ('True','Evet'),
+        ('False','Hayır'),
+    }
+    subject = models.CharField(blank=True,max_length=50)
+    blog = models.ForeignKey(Blog,on_delete=models.CASCADE) #ilişkilendirme category ile
+    user = models.ForeignKey(User,on_delete=models.CASCADE) #ilişkilendirme user ile
+    rate = models.IntegerField(blank=True)
+    comment = models.TextField(blank=True,max_length=200)
+    status = models.CharField(max_length=10,choices= STATUS,default='New') #açılan kutuda seçim olanı gelmesi için
+    ip = models.CharField(blank=True, max_length=20)
+    create_at = models.DateTimeField(auto_now_add=True)
+    update_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.subject #dönderiyor
+
+class CommentForm(ModelForm):
+    class Meta:
+        model=Comment
+        fields =['subject','comment','rate']

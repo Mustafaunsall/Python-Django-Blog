@@ -4,7 +4,8 @@ from django.contrib import admin
 from django.utils.html import format_html
 from mptt.admin import MPTTModelAdmin, DraggableMPTTAdmin
 
-from blog.models import Category, Blog, Images
+from blog.models import Category, Blog, Images, Comment
+
 
 class BlogImagesInline(admin.TabularInline): #blog sayfasında  resim galerisi ekleme 3 tane
     model = Images
@@ -62,6 +63,12 @@ class CategoryAdmin2(DraggableMPTTAdmin):
         return instance.products_cumulative_count
     related_products_cumulative_count.short_description = 'Related products (in tree)'
 
+
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['subject', 'comment','blog','user','status']  #category özelliklerini gösterme
+    list_filter = ['status']
+
 admin.site.register(Category,CategoryAdmin2)
 admin.site.register(Blog,BlogAdmin)
 admin.site.register(Images,ImagesAdmin)
+admin.site.register(Comment,CommentAdmin)

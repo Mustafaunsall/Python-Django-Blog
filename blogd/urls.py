@@ -31,6 +31,7 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('category/<int:id>/<slug:slug>/', views.category_blogs,name='category_blogs'),
     path('blog/<int:id>/<slug:slug>/', views.blog_detail,name='blog_detail'),
+
 ]
 if settings.DEBUG: #new resimleri göstermek için yol
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

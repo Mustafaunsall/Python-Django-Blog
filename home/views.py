@@ -2,7 +2,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib import messages
 # Create your views here.
-from blog.models import Blog, Category
+from blog.models import Blog, Category, Images
 from home.models import Settings, ContactFormu, ContactFormMessage
 
 
@@ -21,6 +21,7 @@ def index(request):
                'lastblogs': lastblogs,
                'randomblogs': randomblogs,
                'populerblogs': populerblogs,
+
                }
     return render(request, 'index.html', context)
 
@@ -73,3 +74,14 @@ def category_blogs(request,id,slug):
                }
 
     return render(request, 'blogs.html', context)
+
+def blog_detail(request,id,slug):
+    category = Category.objects.all()
+    image = Images.objects.filter(blog_id=id)
+    blog = Blog.objects.get(pk=id)
+    context = {
+        'category': category,
+        'blog':blog,
+        'image':image,
+    }
+    return render(request, 'blog_detail.html',context)

@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.contrib import messages
 # Create your views here.
 from blog.models import Blog, Category, Images, Comment
+from home.forms import SearchForm
 from home.models import Settings, ContactFormu, ContactFormMessage
 
 
@@ -88,3 +89,21 @@ def blog_detail(request,id,slug):
 
     }
     return render(request, 'blog_detail.html',context)
+
+
+def blog_search(request):
+    if request.method == 'POST':  # form post edildi ise
+        form = SearchForm(request.POST)
+        if form.is_valid():
+            category = Category.objects.all()
+            query = form.cleaned_data['query']  # formdan bilgi al
+            blogs =Blog.objects.filter(title__icontains=query)#select * from blog where title like %query%
+
+            context ={
+                'category':category,
+                'blogs':blogs,
+            }
+
+            return render(request, 'blogs_search.html',context)
+
+    return HttpResponseRedirect('/')

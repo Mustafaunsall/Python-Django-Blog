@@ -33,6 +33,9 @@ urlpatterns = [
     path('blog/<int:id>/<slug:slug>/', views.blog_detail,name='blog_detail'),
     path('search/', views.blog_search,name='blog_search'),
     path('search_auto/', views.blog_search_auto,name='blog_search_auto'),
+    path('logout/', views.logout_view,name='logout_view'),
+    path('login/', views.login_view,name='login_view'),
+    path('signup/', views.signup_view,name='signup_view'),
 
 
 ]

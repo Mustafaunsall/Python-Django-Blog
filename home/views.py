@@ -1,5 +1,6 @@
 import json
 
+from django.contrib.auth import logout, authenticate, login
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.contrib import messages
@@ -66,31 +67,32 @@ def iletisim(request):
     return render(request, 'iletisim.html', context)
 
 
-def category_blogs(request,id,slug):
+def category_blogs(request, id, slug):
     category = Category.objects.all()
     categorydata = Category.objects.get(pk=id)
     blogs = Blog.objects.filter(category_id=id)
     context = {
-            'blogs': blogs,
-            'category': category,
-            'categorydata':categorydata,
-               }
+        'blogs': blogs,
+        'category': category,
+        'categorydata': categorydata,
+    }
 
     return render(request, 'blogs.html', context)
 
-def blog_detail(request,id,slug):
+
+def blog_detail(request, id, slug):
     category = Category.objects.all()
     image = Images.objects.filter(blog_id=id)
     blog = Blog.objects.get(pk=id)
-    comments = Comment.objects.filter(blog_id=id,status='True')
+    comments = Comment.objects.filter(blog_id=id, status='True')
     context = {
         'category': category,
-        'blog':blog,
-        'image':image,
-        'comments':comments,
+        'blog': blog,
+        'image': image,
+        'comments': comments,
 
     }
-    return render(request, 'blog_detail.html',context)
+    return render(request, 'blog_detail.html', context)
 
 
 def blog_search(request):
@@ -99,16 +101,17 @@ def blog_search(request):
         if form.is_valid():
             category = Category.objects.all()
             query = form.cleaned_data['query']  # formdan bilgi al
-            blogs =Blog.objects.filter(title__icontains=query)#select * from blog where title like %query%
+            blogs = Blog.objects.filter(title__icontains=query)  # select * from blog where title like %query%
 
-            context ={
-                'category':category,
-                'blogs':blogs,
+            context = {
+                'category': category,
+                'blogs': blogs,
             }
 
-            return render(request, 'blogs_search.html',context)
+            return render(request, 'blogs_search.html', context)
 
     return HttpResponseRedirect('/')
+
 
 def blog_search_auto(request):
     if request.is_ajax():
@@ -124,3 +127,42 @@ def blog_search_auto(request):
         data = 'fail'
     mimetype = 'application/json'
     return HttpResponse(data, mimetype)
+
+
+def logout_view(request):
+    logout(request)
+    # Redirect to a success page.
+    return HttpResponseRedirect('/')
+
+
+def login_view(request):
+    if request.method == 'POST':  # form post edildi ise
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            # Redirect to a success page.
+            return HttpResponseRedirect('/')
+        else:
+            messages.warning(request, "Login Hatası! Kullanıcı adı veya sifre yanlış")
+            return HttpResponseRedirect('/login')
+            # Return an 'invalid login' error message.
+
+    category = Category.objects.all()
+    context = {
+        'category': category,
+    }
+    return render(request, 'login.html',context)
+
+def signup_view(request):
+    if request.method == 'POST':  # form post edildi ise
+       return HttpResponse("Sign Up")
+
+
+    category = Category.objects.all()
+    context = {
+        'category': category,
+    }
+    return render(request, 'signup.html',context)
+

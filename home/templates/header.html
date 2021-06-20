@@ -55,38 +55,75 @@
 
             <div class="col-md-4 col-xs-12 col-sm-4">
                 <!-- Cart -->
-                <ul class="top-menu text-right list-inline">
+
+                <div class="pull-right">
+                    <table>
+                        <tr>
+
+                            <td class="header-account dropdown default-dropdown">
+                                <!-- Account -->
+                                {% if user.id is not None %}
+                                    <div class="dropdown-toggle" role="button" data-toggle="dropdown"
+                                         aria-expanded="true">
+                                        <div class="form-control">
 
 
-                    <!-- Search -->
-                    <li class="dropdown search dropdown-slide">
+                                            <strong class="text-uppercase"> <i
+                                                    class="fa fa-user-o"></i>{{ user.first_name }}<i
+                                                    class="fa fa-caret-down"></i></strong>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="form-control">
+                                       <strong style=""> <a href="/login/" class="text-uppercase" style="color: darkblue;"><i class="fa fa-unlock-alt"></i> Login</a>
+                                       </strong> | <a href="/signup/" class="text-uppercase"><i class="fa fa-user-plus"></i> Signup</a>
+                                    </div>
+                                {% endif %}
+
+                                <ul class="custom-menu">
+                                    <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+                                    <li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
+                                    <li><a href="/logout/"><i class="fa fa-unlock"></i> Logout</a></li>
+                                </ul>
+
+                                <!-- /Account -->
+                            </td>
+
+                            <td>
+                                <!-- Search -->
 
 
-                        <table>
-                            <tr>
+                                <table>
+                                    <tr>
 
-                                <form action="/search/" method="post">
-                                    {% csrf_token %}
+                                        <form action="/search/" method="post">
+                                            {% csrf_token %}
 
-                                    <td><input type="search" class="form-control" placeholder="Search..." name="query"
-                                               id="query"></td>
-                                    <td>
-                                        <button type="submit" class="form-control"><i
-                                                class="tf-ion-ios-search-strong"></i></button>
-                                    </td>
-
-
-                                </form>
-                            </tr>
+                                            <td><input type="search" class="form-control" placeholder="Search..."
+                                                       name="query"
+                                                       id="query" style="width: 100px"></td>
+                                            <td>
+                                                <button type="submit" class="form-control"><i
+                                                        class="tf-ion-ios-search-strong"></i></button>
+                                            </td>
 
 
-                        </table>
+                                        </form>
+                                    </tr>
 
-                    </li><!-- / Search -->
+
+                                </table>
 
 
-                </ul><!-- / .nav .navbar-nav .navbar-right -->
+                            </td>
+
+                        </tr>
+                    </table>
+                </div>
+
             </div>
+
         </div>
+    </div>
     </div>
 </section><!-- End Top Header Bar -->

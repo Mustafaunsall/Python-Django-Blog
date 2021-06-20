@@ -1,0 +1,93 @@
+{% extends 'homebase.html' %}
+{% block title %} Sign Up {% endblock %}
+{% block keywords %} {{ settings.keywords }}  {% endblock %}
+{% block decription %} {{ settings.decription }} {% endblock %}
+
+{% block head %}
+    <link rel='shortcut icon' type='image/x-icon' href='{{ settings.icon.url }}'/>
+{% endblock %}
+
+{% block sidebar %}{% include 'sidebar.html' %}{% endblock %}
+
+{% block content %}
+
+    <section class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="content">
+                        <h1 class="page-name" style="color: #0c0c0c">Sign Up</h1>
+                        <ol class="breadcrumb">
+                            <li><a href="/">Anasayfa</a></li>
+                            <li class="active">Sign Up</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="signin-page account">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    <div class="block text-center">
+                        <a class="logo" href="/">
+                            <svg width="160px" height="29px" viewBox="0 0 180 29" version="1.1"
+                                 xmlns="http://www.w3.org/2000/svg"
+                                 xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"
+                                   font-size="40"
+                                   font-family="AustinBold, Austin" font-weight="bold">
+                                    <g id="Group" transform="translate(-108.000000, -297.000000)" fill="#000000">
+                                        <text id="AVIATO">
+                                            <tspan x="104" y="322">Unsal Blog</tspan>
+                                        </text>
+                                    </g>
+                                </g>
+                            </svg>
+                        </a>
+                        <h2 class="text-center">Create Your Account</h2>
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alertPart">
+                                    <div class="alert alert-{{ message.tags }}" role="alert">
+                                        {{ message }}</div>  <!--mesaj veriyor -->
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        <form method="post">
+                            {% csrf_token %}
+                            {% for field in form %}
+
+                                <p>
+                                    {{ field.label_tag }} <br>
+                                    {{ field }}
+                                    <br>
+                                    {% if field.help_text %}
+                                        <small style="color: grey">{{ field.help_text }}</small>
+                                    {% endif %}
+
+                                    {% for error in field.errors %}
+                                        <p style="color: red">{{ error }}</p>
+                                    {% endfor %}
+                                </p>
+                            {% endfor %}
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-main text-center">Sign In</button>
+                            </div>
+                        </form>
+
+
+                        <p class="mt-20">Already hava an account ?<a href="/login"> Login</a></p>
+                        <p><a href="forget-password.html"> Forgot your password?</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}

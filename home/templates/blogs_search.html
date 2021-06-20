@@ -1,0 +1,68 @@
+
+{% extends 'homebase.html' %}
+{% block title %} Search-{{ settings.title }} {% endblock %}
+{% block keywords %} {{ settings.keywords }}  {% endblock %}
+{% block decription %} {{ settings.decription }} {% endblock %}
+
+{% block head %}
+    <link rel='shortcut icon' type='image/x-icon' href='{{ settings.icon.url }}'/>
+{% endblock %}
+
+{% block sidebar %}{% include 'sidebar.html' %}{% endblock %}
+
+{% block content %}
+
+    <section class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="content">
+                        <h1 class="page-name" style="color: #0c0c0c">Blog Search</h1>
+                        <ol class="breadcrumb">
+                            <li class="active"><a href="/">Anasayfa</a></li>
+                            <li >Search</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- SECTION -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-12">
+                    {% for rs in blogs %}
+                    <!-- post -->
+                    <div class="post post-row" style="">
+                        <a class="post-img" href="/blog/{{ rs.id }}/{{ rs.slug }}"><img src="{{ rs.image.url }}" alt="" style="height: 220px"></a>
+                        <div class="post-body">
+                            <div class="post-category">
+                                <a href="/category/{{ rs.category.id }}/{{ rs.category.slug }}">{{ rs.category }}</a>
+                            </div>
+                            <h3 class="post-title"><a href="/blog/{{ rs.id }}/{{ rs.slug }}">{{ rs.title }}</a></h3>
+                            <ul class="post-meta">
+                                <li><a href="author.html">{{ rs.user.first_name }}</a></li>
+                                <li>{{ rs.create_at.date }}</li>
+                            </ul>
+                            <p>{{ rs.description }}</p>
+                        </div>
+                    </div>
+                    <!-- /post -->
+                    {% endfor %}
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /SECTION -->
+
+
+
+{% endblock %}

@@ -1,0 +1,302 @@
+
+{% extends 'homebase.html' %}
+{% block title %} Blog-{{ blog.title }} {% endblock %}
+{% block keywords %} {{ blog.keywords }}  {% endblock %}
+{% block decription %} {{ blog.decription }} {% endblock %}
+
+{% block head %}
+    <link rel='shortcut icon' type='image/x-icon' href='{{ settings.icon.url }}'/>
+{% endblock %}
+
+{% block sidebar %}{% include 'sidebar.html' %}{% endblock %}
+
+{% block content %}
+
+    <section class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="content">
+                        <h1 class="page-name" style="color: #0c0c0c">Blog Detail</h1>
+                        <ol class="breadcrumb">
+                            <li><a href="/">Anasayfa</a></li>
+                            <li class="active">{{ blog.title }}</li>
+
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE HEADER -->
+    <div id="post-header" class="page-header">
+        <div class="page-header-bg" style="background-image: url({{ blog.image.url }});"
+             data-stellar-background-ratio="0.5"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10" style="height: 50px; weight: 500px">
+                    <div class="post-category">
+                        <a href="/category/{{ blog.category_id }}/{{ blog.category.slug }}">{{ blog.category }}</a>
+                    </div>
+                    <h1>{{ blog.description }}</h1>
+                    <ul class="post-meta">
+                        <li><a href="author.html">{{ blog.user.first_name }}</a></li>
+                        <li>{{ blog.create_at.date }}</li>
+                        <li><i class="fa fa-comments"></i> {{ comments.count }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /PAGE HEADER -->
+    </header>
+    <!-- /HEADER -->
+    <!-- section -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-8">
+
+
+                    <!-- post content -->
+                    <h3>{{ blog.title }}</h3>
+                    <div class="section-row">
+                        {{ blog.detail|safe }}
+
+                    </div>
+                    <!-- /post content -->
+
+
+                    <!-- post tags -->
+                    <div class="section-row">
+                        <div class="post-tags">
+                            <ul>
+                                <li>TAGS:</li>
+                                <li><a href="#">{{ blog.category }}</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /post tags -->
+
+
+                </div>
+                <div class="col-md-4">
+
+                    <!-- social widget -->
+                    <div class="aside-widget">
+                        <div class="section-title">
+                            <h2 class="title">Social Media</h2>
+                        </div>
+                        <div class="social-widget">
+                            <ul>
+                                <li>
+                                    <a href="{{ settings.facebook }}" class="social-facebook">
+                                        <i class="fa fa-facebook"></i>
+                                        <span>21.2K<br>Followers</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="social-twitter">
+                                        <i class="fa fa-twitter"></i>
+                                        <span>10.2K<br>Followers</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="social-google-plus">
+                                        <i class="fa fa-google-plus"></i>
+                                        <span>5K<br>Followers</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /social widget -->
+
+                    <!-- category widget -->
+                    <div class="aside-widget">
+                        <div class="section-title">
+                            <h2 class="title">Categories</h2>
+                        </div>
+                        {% for rs in category %}
+                            <div class="category-widget">
+                                <ul>
+                                    {% if not rs.is_leaf_node %}
+                                        <li><a href="/category/{{ rs.id }}/{{ rs.slug }}">{{ rs.title }}</a></li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <!-- /category widget -->
+                    <br>
+                    <!-- post widget -->
+                    <div class="aside-widget">
+                        <div class="section-title">
+                            <h2 class="title">Image Gallery {{ blog.title }}</h2>
+                        </div>
+                        <div class="hero-slider">
+                            {% for rs in image %}
+                                <!-- post -->
+                                <div class="post post-widget">
+                                    <a class="post-body"><img
+                                            src="{{ rs.image.url }}"
+                                            alt=""
+                                            style="height: 200px ;weight:150px"></a>
+                                    <div>
+                                        <div class="post-category">
+                                            <a href="#">{{ rs.title }}</a>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- /post -->
+                            {% endfor %}
+
+
+                        </div>
+                        <!-- /post widget -->
+                    </div>
+
+
+                    <!-- post author -->
+                    <div class="section-row">
+                        <div class="section-title">
+                            <h3 class="title">About <a href="author.html">{{ blog.user.first_name }}</a></h3>
+                        </div>
+                        <div class="author media">
+                            <div class="media-left">
+                                <a href="author.html">
+                                    <img class="author-img media-object" src="{{ blog.image.url }}" alt="">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <p>{{ blog.user.email }}</p>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /post author -->
+
+                </div>
+            </div>
+            <!-- /row -->
+            <div class="row">
+                <div class="col-md-6">
+                    <!-- post comments -->
+                    <div class="section-row">
+                        <div class="section-title">
+                            <h3 class="title">{{ comments.count }} Yorum var</h3>
+                        </div>
+                        <div class="post-comments">
+                            <!-- comment -->
+                            <div class="media media-author">
+                                {% for rs in comments %}
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <img class="media-object" src="{{ blog.image.url }}" alt="">
+                                        </div>
+                                        <div class="media-body">
+                                            <div class="media-heading">
+                                                <h4>{{ rs.user.first_name }}</h4>
+                                                <span class="time">{{ rs.create_at.date }}</span>
+                                                <div class="review-rating pull-right">
+                                                    <i class="fa fa-star{% if rs.rate < 1 %}-o empty{% endif %}"></i>
+                                                    <i class="fa fa-star{% if rs.rate < 2 %}-o empty{% endif %}"></i>
+                                                    <i class="fa fa-star{% if rs.rate < 3 %}-o empty{% endif %}"></i>
+                                                    <i class="fa fa-star{% if rs.rate < 4 %}-o empty{% endif %}"></i>
+                                                    <i class="fa fa-star{% if rs.rate < 5 %}-o empty{% endif %}"></i>
+                                                </div>
+                                            </div>
+                                            <h5>{{ rs.subject }}</h5>
+                                            <p>{{ rs.comment }}</p>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                {% endfor %}
+                                <!-- /comment -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- /post comments -->
+                <div class="col-md-6">
+                    <!-- post reply -->
+                    <div class="section-row">
+                        <div class="section-title">
+                            <h3 class="title">Leave a reply</h3>
+                        </div>
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alertPart">
+                                    <div class="alert alert-{{ message.tags }}" role="alert">
+                                        {{ message }}</div>  <!--mesaj veriyor -->
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                        <form class="review-form" action="/blog/addcomment/{{ blog.id }}" method="post">
+                            {% csrf_token %}
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <input class="form-control" type="text" name="subject" id="id_subject"
+                                               placeholder="Subject">
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div class="input-rating">
+                                            <strong class="text-uppercase">RATE: </strong>
+                                            <div class="stars">
+
+                                                <input type="radio" id="star5" name="rate" value="5"/><label
+                                                    for="star5"></label>
+                                                <input type="radio" id="star4" name="rate" value="4"/><label
+                                                    for="star4"></label>
+                                                <input type="radio" id="star3" name="rate" value="3"/><label
+                                                    for="star3"></label>
+                                                <input type="radio" id="star2" name="rate" value="2"/><label
+                                                    for="star2"></label>
+                                                <input type="radio" id="star1" name="rate" value="1"/><label
+                                                    for="star1"></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <textarea class="form-control" name="comment" id="id_comment"
+                                                  placeholder="Comment"></textarea>
+                                    </div>
+                                </div>
+                                {% if user.id is not None %}
+                                    <div class="col-md-12">
+                                        <button class="primary-button" type="submit">Send Comment</button>
+                                    </div>
+                                {% else %}
+                                    <div class="col-md-12">
+                                        Yorum eklemek için <a href="/login"  style="color: red">login</a> olunuz.
+                                    </div>
+                                {% endif %}
+
+
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /post reply -->
+                </div>
+            </div>
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /SECTION -->
+
+
+{% endblock %}

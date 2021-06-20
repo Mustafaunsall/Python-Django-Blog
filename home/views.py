@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.contrib import messages
 # Create your views here.
 from blog.models import Blog, Category, Images, Comment
-from home.forms import SearchForm
+from home.forms import SearchForm, SignUpForm
 from home.models import Settings, ContactFormu, ContactFormMessage
 
 
@@ -157,12 +157,21 @@ def login_view(request):
 
 def signup_view(request):
     if request.method == 'POST':  # form post edildi ise
-       return HttpResponse("Sign Up")
+        form = SignUpForm(request.POST)
+        if form.is_valid(): #control
+            form.save()  #kayıt yapıldı ekstra şeyler kaydetmeyeceksek böyle kaydedilir
+            username = form.cleaned_data.get('username') #login işlemi
+            password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            # Redirect to a success page.
+            return HttpResponseRedirect('/')
 
-
+    form = SignUpForm()
     category = Category.objects.all()
     context = {
         'category': category,
+        'form': form,
     }
     return render(request, 'signup.html',context)
 

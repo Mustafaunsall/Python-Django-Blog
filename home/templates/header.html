@@ -68,8 +68,7 @@
                                         <div class="form-control">
 
 
-                                            <strong class="text-uppercase"> <i
-                                                    class="fa fa-user-o"></i>{{ user.first_name }}<i
+                                            <strong class="text-uppercase"><img src="{{ user.userprofile.image.url }}" style="height: 25px;width: 25px;border-radius:100% ">{{ user.first_name }}<i
                                                     class="fa fa-caret-down"></i></strong>
                                         </div>
                                     </div>
@@ -81,8 +80,8 @@
                                 {% endif %}
 
                                 <ul class="custom-menu">
-                                    <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
-                                    <li><a href="#"><i class="fa fa-heart-o"></i> My Wishlist</a></li>
+                                    <li><a href="/user/"><i class="fa fa-user-o"></i> My Profile</a></li>
+                                    <li><a href="#"><i class="fa fa-heart-o"></i> My Blogs</a></li>
                                     <li><a href="/logout/"><i class="fa fa-unlock"></i> Logout</a></li>
                                 </ul>
 

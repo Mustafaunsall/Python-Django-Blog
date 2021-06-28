@@ -22,13 +22,16 @@ from home import views
 
 urlpatterns = [
     path('blog/', include('blog.urls')), #blog app urli tanıt
+    path('', include('home.urls')), #home app urli tanıt
+    path('home/', include('home.urls')), #home app urli tanıt
+    path('user/', include('user.urls')), #user app urli tanıt
+    path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('admin/', admin.site.urls),
+
+
     path('hakkimizda/', views.hakkimizda, name='hakkimizda'),
     path('referanslarımız/', views.referanslarımız, name='referanslarımız'),
     path('iletisim/', views.iletisim, name='iletisim'),
-    path('', include('home.urls')), #home app urli tanıt
-    path('home/', include('home.urls')), #home app urli tanıt
-    path('admin/', admin.site.urls),
-    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('category/<int:id>/<slug:slug>/', views.category_blogs,name='category_blogs'),
     path('blog/<int:id>/<slug:slug>/', views.blog_detail,name='blog_detail'),
     path('search/', views.blog_search,name='blog_search'),
@@ -36,6 +39,8 @@ urlpatterns = [
     path('logout/', views.logout_view,name='logout_view'),
     path('login/', views.login_view,name='login_view'),
     path('signup/', views.signup_view,name='signup_view'),
+
+
 
 
 ]

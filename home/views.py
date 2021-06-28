@@ -7,7 +7,7 @@ from django.contrib import messages
 # Create your views here.
 from blog.models import Blog, Category, Images, Comment
 from home.forms import SearchForm, SignUpForm
-from home.models import Settings, ContactFormu, ContactFormMessage
+from home.models import Settings, ContactFormu, ContactFormMessage, UserProfile
 
 
 def index(request):
@@ -165,6 +165,11 @@ def signup_view(request):
             user = authenticate(username=username, password=password)
             login(request, user)
             # Redirect to a success page.
+            current_user = request.user
+            data=UserProfile()
+            data.user_id=current_user.id
+            data.image="images/users/user.png"
+            data.save()
             return HttpResponseRedirect('/')
 
     form = SignUpForm()

@@ -28,7 +28,7 @@
                                                                        style="height: 120px">{{ rs.description }}</a>
                                     </h5>
                                     <ul class="post-meta" style="height: 10px">
-                                        <li><a href="author.html">By.admin</a></li>
+                                        <li><a >By.{{ rs.user.first_name }}</a></li>
                                         <li>{{ rs.create_at.date }}</li>
                                         <li>{{ rs.category }}</li>
                                         <li>{{ rs.comments.count }}</li>
@@ -65,7 +65,7 @@
                                             href="/blog/{{ rs.id }}/{{ rs.slug }}">{{ rs.description }}</a>
                                     </h3>
                                     <ul class="post-meta">
-                                        <li><a href="author.html">By.Admin--{{ rs.create_at.date }}</a></li>
+                                        <li><a >By.{{ rs.user.first_name }}--{{ rs.create_at.date }}</a></li>
                                         <li>{{ rs.category }}</li>
                                     </ul>
                                 </div>
@@ -149,7 +149,7 @@
                                     <h3 class="post-title"><a
                                             href="/blog/{{ rs.id }}/{{ rs.slug }}">{{ rs.description }}</a></h3>
                                     <ul class="post-meta">
-                                        <li><a href="author.html">By.Admin--{{ rs.create_at.date }}</a></li>
+                                        <li><a >By.{{ rs.user.first_name }}--{{ rs.create_at.date }}</a></li>
                                     </ul>
                                 </div>
                             </div>

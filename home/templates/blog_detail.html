@@ -1,4 +1,3 @@
-
 {% extends 'homebase.html' %}
 {% block title %} Blog-{{ blog.title }} {% endblock %}
 {% block keywords %} {{ blog.keywords }}  {% endblock %}
@@ -116,22 +115,7 @@
                     </div>
                     <!-- /social widget -->
 
-                    <!-- category widget -->
-                    <div class="aside-widget">
-                        <div class="section-title">
-                            <h2 class="title">Categories</h2>
-                        </div>
-                        {% for rs in category %}
-                            <div class="category-widget">
-                                <ul>
-                                    {% if not rs.is_leaf_node %}
-                                        <li><a href="/category/{{ rs.id }}/{{ rs.slug }}">{{ rs.title }}</a></li>
-                                    {% endif %}
-                                </ul>
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <!-- /category widget -->
+
                     <br>
                     <!-- post widget -->
                     <div class="aside-widget">
@@ -139,27 +123,42 @@
                             <h2 class="title">Image Gallery {{ blog.title }}</h2>
                         </div>
                         <div class="hero-slider">
+                            <div class="post post-widget">
+                                <a class="post-body"><img
+                                        src="{{ blog.image.url }}"
+                                        alt=""
+                                        style="height: 250px ;width:350px">
+                                </a>
+                                <div>
+                                    <div class="post-category">
+                                        <a href="#">{{ blog.title }}</a>
+                                    </div>
+
+                                </div>
+                            </div>
                             {% for rs in image %}
                                 <!-- post -->
                                 <div class="post post-widget">
                                     <a class="post-body"><img
                                             src="{{ rs.image.url }}"
                                             alt=""
-                                            style="height: 200px ;weight:150px"></a>
+                                            style="height: 250px ;width:350px"></a>
                                     <div>
                                         <div class="post-category">
                                             <a href="#">{{ rs.title }}</a>
                                         </div>
 
                                     </div>
+
                                 </div>
-                                <!-- /post -->
                             {% endfor %}
 
-
+                            <!-- /post -->
                         </div>
+
                         <!-- /post widget -->
                     </div>
+
 
 
                     <!-- post author -->
@@ -170,11 +169,13 @@
                         <div class="author media">
                             <div class="media-left">
                                 <a href="author.html">
-                                    <img class="author-img media-object" src="{{ blog.image.url }}" alt="">
+                                    <img class="author-img media-object" src="{{ blog.user.userprofile.image.url }}"
+                                         alt="">
                                 </a>
                             </div>
                             <div class="media-body">
                                 <p>{{ blog.user.email }}</p>
+                                <p>{{ blog.user.first_name }} {{ blog.user.last_name }}</p>
 
                             </div>
                         </div>
@@ -197,7 +198,7 @@
                                 {% for rs in comments %}
                                     <div class="media">
                                         <div class="media-left">
-                                            <img class="media-object" src="{{ blog.image.url }}" alt="">
+                                            <img class="media-object" src="{{ rs.user.userprofile.image.url }}" alt="">
                                         </div>
                                         <div class="media-body">
                                             <div class="media-heading">
@@ -282,7 +283,7 @@
                                     </div>
                                 {% else %}
                                     <div class="col-md-12">
-                                        Yorum eklemek için <a href="/login"  style="color: red">login</a> olunuz.
+                                        Yorum eklemek için <a href="/login" style="color: red">login</a> olunuz.
                                     </div>
                                 {% endif %}
 

@@ -1,0 +1,111 @@
+{% extends 'homebase.html' %}
+{% block title %} {{ profile.user.username }}  Profile {% endblock %}
+{% block keywords %} {{ settings.keywords }}  {% endblock %}
+{% block decription %} {{ settings.decription }}  {% endblock %}
+
+{% block head %}
+    <link rel='shortcut icon' type='image/x-icon' href='{{ settings.icon.url }}'/>
+{% endblock %}
+
+{% block sidebar %}{% include 'sidebar.html' %}{% endblock %}
+
+{% block content %}
+
+    <section class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="content">
+                        <h1 class="page-name" style="color: #0c0c0c">User profile</h1>
+                        <ol class="breadcrumb">
+                            <li><a href="/">Anasayfa</a></li>
+                            <li class="active">User Profile</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+
+            <div class="row">
+
+                <div class="col-md-3">
+                    <div class="section-row">
+                        <div class="dashboard-wrapper dashboard-user-profile">
+                            {% include 'user_panel.html' %}
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <!-- social widget -->
+                    <div class="aside-widget">
+                        <div class="dashboard-wrapper dashboard-user-profile">
+                            <div class="section-title">
+                                <h2 class="title">User Profile</h2>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table">
+
+                                    <tr>
+                                        <th></th>
+                                        <div class="pull-left text-center" href="#!">
+                                            <td><img class="media-object user-img" src="{{ profile.image.url }}">
+                                            </td>
+                                        </div>
+                                    </tr>
+                                    <tr>
+                                        <th>Name Surname</th>
+                                        <td>{{ profile.user_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <td>{{ profile.user.email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Phone</th>
+                                        <td>{{ profile.phone }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Addres</th>
+                                        <td>{{ profile.address }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>City</th>
+                                        <td>{{ profile.city }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Country</th>
+                                        <td>{{ profile.country }}</td>
+                                    </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /social widget -->
+
+                </div>
+
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /SECTION -->
+
+
+
+
+
+{% endblock %}

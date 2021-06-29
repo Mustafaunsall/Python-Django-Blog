@@ -30,7 +30,7 @@ urlpatterns = [
 
 
     path('hakkimizda/', views.hakkimizda, name='hakkimizda'),
-    path('referanslarımız/', views.referanslarımız, name='referanslarımız'),
+    path('referanslarimiz/', views.referanslarimiz, name='referanslarimiz'),
     path('iletisim/', views.iletisim, name='iletisim'),
     path('category/<int:id>/<slug:slug>/', views.category_blogs,name='category_blogs'),
     path('blog/<int:id>/<slug:slug>/', views.blog_detail,name='blog_detail'),

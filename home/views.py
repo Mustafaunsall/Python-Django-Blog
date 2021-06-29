@@ -38,7 +38,7 @@ def hakkimizda(request):
     return render(request, 'hakkimizda.html', context)
 
 
-def referanslarımız(request):
+def referanslarimiz(request):
     settings = Settings.objects.get(pk=1)
     category = Category.objects.all()
 
@@ -78,7 +78,6 @@ def category_blogs(request, id, slug):
     }
 
     return render(request, 'blogs.html', context)
-
 
 def blog_detail(request, id, slug):
     category = Category.objects.all()
@@ -170,6 +169,7 @@ def signup_view(request):
             data.user_id=current_user.id
             data.image="images/users/user.png"
             data.save()
+            messages.success(request, "Hoşgeldiniz,Sitemize başarıyla  üye oldunuz.")
             return HttpResponseRedirect('/')
 
     form = SignUpForm()

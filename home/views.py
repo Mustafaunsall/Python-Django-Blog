@@ -7,14 +7,14 @@ from django.contrib import messages
 # Create your views here.
 from blog.models import Blog, Category, Images, Comment
 from home.forms import SearchForm, SignUpForm
-from home.models import Settings, ContactFormu, ContactFormMessage, UserProfile
+from home.models import Settings, ContactFormu, ContactFormMessage, UserProfile, FAQ
 
 
 def index(request):
     settings = Settings.objects.get(pk=1)
     category = Category.objects.all()
     sliderdata = Blog.objects.all()[:5]
-    dayblogs = Blog.objects.all()[:6]
+    dayblogs = Blog.objects.all()[:8]
     lastblogs = Blog.objects.all().order_by('-id')[:4]
     randomblogs = Blog.objects.all().order_by('?')[:9]
     populerblogs = Blog.objects.all()[:5]
@@ -180,3 +180,15 @@ def signup_view(request):
     }
     return render(request, 'signup.html',context)
 
+
+def faq(request):
+    category = Category.objects.all()
+    #menu =  Menu.objects.all()
+    faq = FAQ.objects.filter(status="True").order_by("ordernumber")
+
+    context = {
+        'category': category,
+        #'menu': menu,
+        'faq': faq,
+    }
+    return render(request, 'faq.html', context)

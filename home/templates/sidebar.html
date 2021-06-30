@@ -14,12 +14,11 @@
                 </button>
 
 
-
-
-
             </div><!-- / .navbar-header -->
+
+            <!-- /category nav
             <div id="responsive-nav">
-                <!-- category nav -->
+
                 <div class="category-nav show-on-click">
                     <span class="category-header">Categories <i class="fa fa-list"></i></span>
                     {% load mptt_tags %}
@@ -58,8 +57,9 @@
 
                     </ul>
                 </div>
-                <!-- /category nav -->
+
             </div>
+             -->
 
             <!-- Navbar Links----------------------------------------------- -->
             <div id="navbar" class="navbar-collapse collapse text-center">
@@ -74,9 +74,54 @@
                     </li><!-- / Home -->
 
 
-
                     <!-- Blog -->
+                    <!-- Category -->
+                    <li class="dropdown dropdown-slide">
+                        <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                           data-delay="350"
+                           role="button" aria-haspopup="true" aria-expanded="false">Category <span
+                                class="tf-ion-ios-arrow-down"></span></a>
+                        <div class="dropdown-menu">
+                            <div class="row">
 
+                                {% load mptt_tags %}
+                                <ul class="category-list">
+
+                                    {% recursetree category %}
+                                        <li class="dropdown side-dropdown">
+                                            <a href="/category/{{ node.id }}/{{ node.slug }}"
+                                                    {% if not node.is_leaf_node %}
+                                               class="dropdown-toggle" data-toggle="dropdown"
+                                               aria-expanded="true"{% endif %}>
+                                                {{ node.title }}{% if not node.is_leaf_node %}
+                                                    <i class="fa fa-angle-right"></i>{% endif %}</a>
+                                            <div class="custom-menu">
+                                                <div class="row">
+
+
+                                                    <div class="col-md-12">
+
+
+                                                        {% if not node.is_leaf_node %}
+                                                            <ul class="list-links" class="children">
+                                                                <li><a href="">{{ children }}</a></li>
+
+                                                            </ul>
+                                                        {% endif %}
+                                                        <hr class="hidden-md hidden-lg">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+
+                                    {% endrecursetree %}
+
+
+                                </ul>
+                            </div><!-- / .row -->
+                        </div><!-- / .dropdown-menu -->
+                    </li><!-- / Category -->
 
                     <!-- Aboutus -->
                     <li class="dropdown ">
@@ -92,7 +137,7 @@
                     </li><!-- / Contact -->
                     <!-- Contact -->
                     <li class="dropdown ">
-                        <a href="/faq">Faq</a>
+                        <a href="/faq">SSS</a>
                     </li><!-- / Contact -->
                 </ul><!-- / .nav .navbar-nav -->
 

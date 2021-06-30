@@ -25,6 +25,7 @@ urlpatterns = [
     path('', include('home.urls')), #home app urli tanıt
     path('home/', include('home.urls')), #home app urli tanıt
     path('user/', include('user.urls')), #user app urli tanıt
+    path('content/', include('content.urls')), #content app urli tanıt
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('admin/', admin.site.urls),
 
@@ -32,10 +33,13 @@ urlpatterns = [
     path('hakkimizda/', views.hakkimizda, name='hakkimizda'),
     path('referanslarimiz/', views.referanslarimiz, name='referanslarimiz'),
     path('iletisim/', views.iletisim, name='iletisim'),
+    path('faq/', views.faq, name='faq'),
+
     path('category/<int:id>/<slug:slug>/', views.category_blogs,name='category_blogs'),
     path('blog/<int:id>/<slug:slug>/', views.blog_detail,name='blog_detail'),
     path('search/', views.blog_search,name='blog_search'),
     path('search_auto/', views.blog_search_auto,name='blog_search_auto'),
+
     path('logout/', views.logout_view,name='logout_view'),
     path('login/', views.login_view,name='login_view'),
     path('signup/', views.signup_view,name='signup_view'),

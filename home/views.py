@@ -93,6 +93,13 @@ def blog_detail(request, id, slug):
     }
     return render(request, 'blog_detail.html', context)
 
+def content_detail(request, id, slug):
+    category = Category.objects.all()
+    blog = Blog.objects.filter(category_id=id)
+    link='/blog/'+str(blog[0].id)+'/'+blog[0].slug
+
+    return HttpResponseRedirect(link)
+
 
 def blog_search(request):
     if request.method == 'POST':  # form post edildi ise

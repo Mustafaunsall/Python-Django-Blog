@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.contrib import messages
 # Create your views here.
 from blog.models import Blog, Category, Images, Comment
+from content.models import Menu, Content, CImages
 from home.forms import SearchForm, SignUpForm
 from home.models import Settings, ContactFormu, ContactFormMessage, UserProfile, FAQ
 
@@ -13,15 +14,21 @@ from home.models import Settings, ContactFormu, ContactFormMessage, UserProfile,
 def index(request):
     settings = Settings.objects.get(pk=1)
     category = Category.objects.all()
-    sliderdata = Blog.objects.all()[:5]
-    dayblogs = Blog.objects.all()[:8]
-    lastblogs = Blog.objects.all().order_by('-id')[:4]
-    randomblogs = Blog.objects.all().order_by('?')[:9]
-    populerblogs = Blog.objects.all()[:5]
+    menu = Menu.objects.all()
+    sliderdata = Blog.objects.filter(status="True")[:5]
+    dayblogs = Blog.objects.filter(status="True")[:8]
+    lastblogs = Blog.objects.filter(status="True").order_by('-id')[:4]
+    randomblogs = Blog.objects.filter(status="True").order_by('?')[:9]
+    populerblogs = Blog.objects.filter(status="True")[:5]
+    news = Content.objects.filter(type='haber').order_by('-id')[:5]
+    announcements = Content.objects.filter(type="duyuru").order_by('-id')[:5]
     context = {'settings': settings,
                'sliderdata': sliderdata,
                'dayblogs': dayblogs,
                'category': category,
+               'menu': menu,
+               'news': news,
+               'announcements': announcements,
                'lastblogs': lastblogs,
                'randomblogs': randomblogs,
                'populerblogs': populerblogs,
@@ -79,26 +86,60 @@ def category_blogs(request, id, slug):
 
     return render(request, 'blogs.html', context)
 
-def blog_detail(request, id, slug):
-    category = Category.objects.all()
-    image = Images.objects.filter(blog_id=id)
-    blog = Blog.objects.get(pk=id)
-    comments = Comment.objects.filter(blog_id=id, status='True')
-    context = {
-        'category': category,
-        'blog': blog,
-        'image': image,
-        'comments': comments,
+def menu(request, id):
 
-    }
-    return render(request, 'blog_detail.html', context)
+    try:
+        content = Content.objects.get(menu_id=id)
+        link='/content/'+str(content.id)+'/menu'
+        return HttpResponseRedirect(link)
+    except:
+        messages.warning(request,"Hata! ilgili içerik bulunamadı")
+        link='/error'
+        return HttpResponseRedirect(link)
 
 def content_detail(request, id, slug):
     category = Category.objects.all()
-    blog = Blog.objects.filter(category_id=id)
-    link='/blog/'+str(blog[0].id)+'/'+blog[0].slug
+    menu = Menu.objects.all()
+    try:
+        content = Content.objects.get(pk=id)
+        images = CImages.objects.filter(content_id=id)
+        #comments=Comment.objects.filter(product_id=id,status='True')
 
-    return HttpResponseRedirect(link)
+        context = {
+            'category': category,
+            'menu': menu,
+            'content': content,
+            'images': images,
+            #'comments': comments,
+        }
+
+    except:
+        messages.warning(request,"Hata! ilgili içerik bulunamadı")
+        link='/error'
+        return HttpResponseRedirect(link)
+
+    return render(request, 'content_detail.html', context)
+
+
+def blog_detail(request, id, slug):
+    category = Category.objects.all()
+    try:
+        image = Images.objects.filter(blog_id=id)
+        blog = Blog.objects.get(pk=id)
+        comments = Comment.objects.filter(blog_id=id, status='True')
+        context = {
+            'category': category,
+            'blog': blog,
+            'image': image,
+            'comments': comments,
+
+        }
+        return render(request, 'blog_detail.html', context)
+    except:
+        messages.warning(request,"Hata! ilgili içerik bulunamadı")
+        link='/error'
+        return HttpResponseRedirect(link)
+
 
 
 def blog_search(request):
@@ -199,3 +240,14 @@ def faq(request):
         'faq': faq,
     }
     return render(request, 'faq.html', context)
+
+
+def error(request):
+
+    category = Category.objects.all()
+    menu = Menu.objects.all()
+    context = {
+        'category': category,
+        'menu':menu,
+    }
+    return render(request, 'error_page.html', context)

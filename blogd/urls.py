@@ -34,10 +34,13 @@ urlpatterns = [
     path('referanslarimiz/', views.referanslarimiz, name='referanslarimiz'),
     path('iletisim/', views.iletisim, name='iletisim'),
     path('faq/', views.faq, name='faq'),
+    path('error/', views.error, name='error'),
 
     path('category/<int:id>/<slug:slug>/', views.category_blogs,name='category_blogs'),
     path('blog/<int:id>/<slug:slug>/', views.blog_detail,name='blog_detail'),
     path('content/<int:id>/<slug:slug>/', views.content_detail,name='content_detail'),
+    path('menu/<int:id>/', views.menu,name='menu'),
+
     path('search/', views.blog_search,name='blog_search'),
     path('search_auto/', views.blog_search_auto,name='blog_search_auto'),
 

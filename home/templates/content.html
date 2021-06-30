@@ -3,8 +3,47 @@
 <div class="section">
     <!-- container -->
     <div class="container">
+        <div class="dashboard-wrapper dashboard-user-profile">
+            <div class="row">
+
+                <div class="col-md-6">
+                    <!-- category widget -->
+                    <div class="aside-widget">
+                        <div class="section-title">
+                            <h2 class="title" style="color: blue">Haberler</h2>
+                        </div>
+                        <div class="category-widget">
+                            <ul>
+                                {% for rs in news %}
+                                    <li><a href="/content/{{ rs.id }}/{{ rs.slug }}">{{ rs.title }} </a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /category widget -->
+                </div>
+                <div class="col-md-6">
+                    <!-- category widget -->
+                    <div class="aside-widget">
+                        <div class="section-title">
+                            <h2 class="title" style="color: blue">Duyurular</h2>
+                        </div>
+                        <div class="category-widget">
+                            <ul>
+                                {% for rs in announcements %}
+                                    <li><a href="/content/{{ rs.id }}/{{ rs.slug }}">{{ rs.title }} </a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /category widget -->
+                </div>
+
+            </div>
+        </div>
         <!-- row -->
         <div class="row">
+
             <div class="col-md-8">
                 <!-- row last-->
                 <div class="row">
@@ -180,15 +219,16 @@
                     <div class="col-md-4">
                         <!-- post -->
                         <div class="post post-widget">
-                            <a class="post-img" href="/blog/{{ rs.id }}/{{ rs.slug }}"><img src="{{ rs.image.url }}" alt=""
-                                                                           style="height: 80px; "></a>
+                            <a class="post-img" href="/blog/{{ rs.id }}/{{ rs.slug }}"><img src="{{ rs.image.url }}"
+                                                                                            alt=""
+                                                                                            style="height: 80px; "></a>
                             <div class="post-body" style="height: 80px">
                                 <div class="post-category">
                                     <a href="/blog/{{ rs.id }}/{{ rs.slug }}">{{ rs.title }}</a>
                                 </div>
                                 <h5><a href="/blog/{{ rs.id }}/{{ rs.slug }}">{{ rs.description }}</a></h5>
                                 <ul class="post-meta">
-                                    <li><a >{{ rs.category }}</a></li>
+                                    <li><a>{{ rs.category }}</a></li>
                                 </ul>
                             </div>
                         </div>

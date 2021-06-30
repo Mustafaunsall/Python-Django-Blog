@@ -140,36 +140,37 @@
                         <a href="/faq">SSS</a>
                     </li><!-- / Contact -->
                     <!-- Content -->
-                    {% recursetree content %}
-                    <li class="dropdown dropdown-slide">
-                        <a href="/content/{{ node.id }}/{{ node.slug }}"
-                                {% if not node.is_leaf_node %}
-                           class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
-                           data-delay="350"
-                           role="button" aria-haspopup="true" aria-expanded="false"{% endif %}>
-                            {{ node.title }}{% if not node.is_leaf_node %}
-                                <span class="tf-ion-ios-arrow-down"></span>{% endif %}</a>
-                        <div class="custom-menu">
-                            <div class="row">
+                    {% if menu %}
+                        {% recursetree menu %}
+                            <li class="dropdown dropdown-slide">
+                                <a href="/menu/{{ node.id }}"
+                                        {% if not node.is_leaf_node %}
+                                   class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
+                                   data-delay="350"
+                                   role="button" aria-haspopup="true" aria-expanded="false"{% endif %}>
+                                    {{ node.title }}{% if not node.is_leaf_node %}
+                                        <span class="tf-ion-ios-arrow-down"></span>{% endif %}</a>
+                                <div class="custom-menu">
+                                    <div class="row">
 
 
-                                <div class="col-md-12">
+                                        <div class="col-md-12">
 
 
-                                    {% if not node.is_leaf_node %}
-                                        <ul class="list-links" class="children">
-                                            <li><a href="">{{ children }}</a></li>
+                                            {% if not node.is_leaf_node %}
+                                                <ul class="list-links" class="children">
+                                                    <li><a href="#">{{ children }}</a></li>
 
-                                        </ul>
-                                    {% endif %}
-                                    <hr class="hidden-md hidden-lg">
+                                                </ul>
+                                            {% endif %}
+                                            <hr class="hidden-md hidden-lg">
 
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </li><!-- / Content -->
-                    {% endrecursetree %}
-
+                            </li><!-- / Content -->
+                        {% endrecursetree %}
+                    {% endif %}
                 </ul><!-- / .nav .navbar-nav -->
 
 

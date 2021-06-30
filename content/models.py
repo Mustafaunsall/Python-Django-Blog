@@ -51,7 +51,7 @@ class Content(models.Model):
         ('True','Evet'),
         ('False','Hayır'),
     }
-    category = models.OneToOneField(Menu,null=True,blank=True,on_delete=models.CASCADE) #ilişkilendirme Menu ile
+    menu = models.OneToOneField(Menu,null=True,blank=True,on_delete=models.CASCADE) #ilişkilendirme Menu ile
     type = models.CharField(choices=TYPE,max_length=10)
     title = models.CharField(blank=True,max_length=100)
     description = models.CharField(blank=True,max_length=255)
@@ -75,7 +75,7 @@ class Content(models.Model):
 
 
 class CImages(models.Model):
-    blog = models.ForeignKey(Content,on_delete=models.CASCADE) #ilişkilendirme category ile
+    content = models.ForeignKey(Content,on_delete=models.CASCADE) #ilişkilendirme category ile
     title = models.CharField(max_length=50,blank=True)
     image = models.ImageField(blank=True,upload_to='images/')
 

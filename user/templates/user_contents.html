@@ -1,0 +1,133 @@
+{% extends 'homebase.html' %}
+{% block title %} {{ profile.user.username }} Comments {% endblock %}
+{% block keywords %} {{ settings.keywords }}  {% endblock %}
+{% block decription %} {{ settings.decription }}  {% endblock %}
+
+{% block head %}
+    <link rel='shortcut icon' type='image/x-icon' href='{{ settings.icon.url }}'/>
+{% endblock %}
+
+{% block sidebar %}{% include 'sidebar.html' %}{% endblock %}
+
+{% block content %}
+
+    <section class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="content">
+                        <h1 class="page-name" style="color: #0c0c0c">User contents </h1>
+                        <ol class="breadcrumb">
+                            <li><a href="/">Anasayfa</a></li>
+                            <li class="active">User contents</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+
+            <div class="row">
+
+                <div class="col-md-3">
+                    <div class="section-row">
+                        <div class="dashboard-wrapper dashboard-user-profile">
+                            {% include 'user_panel.html' %}
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <!-- social widget -->
+                    <div class="aside-widget">
+                        <div class="dashboard-wrapper dashboard-user-profile">
+                            <div class="section-title">
+                                <h2 class="title">User Contents  <a class="primary-button" href="/user/addcontent" style="border-radius: 30px">Add Content</a></h2>
+                            </div>
+
+                            <div class="table-responsive">
+                                {% if messages %}
+                                    {% for message in messages %}
+                                        <div class="alertPart">
+                                            <div class="alert alert-{{ message.tags }}" role="alert">
+                                                {{ message|safe }}</div>  <!--mesaj veriyor -->
+                                        </div>
+                                    {% endfor %}
+                                {% endif %}
+                                <table class="table">
+
+                                    <tr>
+
+                                        <th>Image</th>
+                                        <th>Title</th>
+                                        <th>Type</th>
+                                        <th>Menu</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                    {% for rs in contents %}
+                                        <tr>
+                                            <td>
+                                                <a href="/content/{{ rs.id }}/{{ rs.slug }}">
+                                                <img src="{{ rs.image.url }}" style="height: 50px;">
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="/content/{{ rs.id }}/{{ rs.slug }}">
+                                                {{ rs.title }}
+                                                </a>
+                                            </td>
+                                            <td>{{ rs.type }}</td>
+                                            <td>{{ rs.menu }}</td>
+                                            <td>
+                                                {% if 'New' == rs.status %}
+                                                    <span class="label label-info">{{ rs.status }}</span>
+                                                {% endif %}
+                                                {% if 'True' == rs.status %}
+                                                    <span class="label label-success">{{ rs.status }}</span>
+                                                {% endif %}
+                                                {% if 'False' == rs.status %}
+                                                    <span class="label label-danger">{{ rs.status }}</span>
+                                                {% endif %}
+                                            </td>
+
+                                            <td>{{ rs.create_at }}</td>
+                                            <td><a type="button" class="btn btn-default" href="/user/contentedit/{{ rs.id }}"><i class="tf-pencil2" aria-hidden="true"></i></a></td>
+                                            <td>
+                                                <div class="btn-group" role="group">
+                                                    <a type="button" class="btn btn-default" href="/user/contentdelete/{{ rs.id }}" onclick="return confirm('Will be Delete ! are you sure?')"><i class="tf-ion-close" aria-hidden="true" ></i></a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+
+
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /social widget -->
+
+                </div>
+
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /SECTION -->
+
+
+
+
+
+{% endblock %}

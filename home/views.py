@@ -21,7 +21,7 @@ def index(request):
     randomblogs = Blog.objects.filter(status="True").order_by('?')[:9]
     populerblogs = Blog.objects.filter(status="True")[:5]
     news = Content.objects.filter(type='haber').order_by('-id')[:5]
-    announcements = Content.objects.filter(type="duyuru").order_by('-id')[:5]
+    announcements = Content.objects.filter(type="duyuru",status=True).order_by('-id')[:5]
     context = {'settings': settings,
                'sliderdata': sliderdata,
                'dayblogs': dayblogs,

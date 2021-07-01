@@ -1,7 +1,10 @@
+from ckeditor.widgets import CKEditorWidget
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
+from django.forms import ModelForm, TextInput, Select, FileInput
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 from mptt.fields import TreeForeignKey
@@ -37,20 +40,22 @@ class Menu(MPTTModel):
         return '/'.join(full_path[::-1])
 
 
+TYPE = { #seçim
+
+    ('menu','menu'),
+    ('haber','haber'),
+    ('duyuru','duyuru'),
+    ('etkinlik','etkinlik'),
+}
+STATUS = { #seçim
+
+    ('True','Evet'),
+    ('False','Hayır'),
+}
+
 class Content(models.Model):
 
-    TYPE = { #seçim
-
-        ('menu','menu'),
-        ('haber','haber'),
-        ('duyuru','duyuru'),
-        ('etkinlik','etkinlik'),
-    }
-    STATUS = { #seçim
-
-        ('True','Evet'),
-        ('False','Hayır'),
-    }
+    user = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
     menu = models.OneToOneField(Menu,null=True,blank=True,on_delete=models.CASCADE) #ilişkilendirme Menu ile
     type = models.CharField(choices=TYPE,max_length=10)
     title = models.CharField(blank=True,max_length=100)
@@ -84,3 +89,23 @@ class CImages(models.Model):
     def image_tag(self):    #resmi admin panelde göstermesi için
         return mark_safe('<img src="{}" height="50"/>'.format(self.image.url))
     image_tag.short_description = 'Image'
+
+class ContentForm(ModelForm):
+    class Meta:
+        model = Content
+        fields = ('type', 'title', 'slug' , 'description','keywords','image','detail')
+        widgets = {
+            'title'     : TextInput(attrs={'class': 'form-control','placeholder':'title'}),
+            'slug'   : TextInput(attrs={'class': 'form-control','placeholder':'slug'}),
+            'description'   : TextInput(attrs={'class': 'form-control','placeholder':'description' }),
+            'keywords'   : TextInput(attrs={'class': 'form-control','placeholder':'keywords' }),
+            'type'      : Select(attrs={'class': 'form-control','placeholder':'city'},choices=TYPE),
+            'image'     : FileInput(attrs={'class': 'form-control', 'placeholder': 'image', }),
+            'detail'   : CKEditorWidget(), #ckeditor input
+
+        }
+
+class ContentImageForm(ModelForm):
+    class Meta:
+            model=CImages
+            fields=['title','image']

@@ -38,8 +38,16 @@
 
                         <img src="{{ content.image.url }}" height="300" align="left" style="padding: 10px;border-radius: 25px">
                         {{ content.detail|safe }}
-                    <hr>
+
                     </div>
+
+                </div>
+
+            </div>
+            <!-- /row -->
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
                     <div class="section-row">
                         {% for rs in images %}
                             <img src="{{ rs.image.url }}" alt="" height="150"width="150">

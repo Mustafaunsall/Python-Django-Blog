@@ -68,6 +68,7 @@
                                         <th>Title</th>
                                         <th>Type</th>
                                         <th>Menu</th>
+                                        <th>Gallery</th>
                                         <th>Status</th>
                                         <th>Date</th>
                                         <th></th>
@@ -87,6 +88,10 @@
                                             </td>
                                             <td>{{ rs.type }}</td>
                                             <td>{{ rs.menu }}</td>
+                                            <td>
+                                                <a type="button" class="btn btn-default" href="javascript:;" onclick="window.open('/user/contentaddimage/{{ rs.id }}','gallery','height=600,with=800,top=50,left=150')"><i class="fa fa-image" aria-hidden="true" ></i></a>
+
+                                            </td>
                                             <td>
                                                 {% if 'New' == rs.status %}
                                                     <span class="label label-info">{{ rs.status }}</span>

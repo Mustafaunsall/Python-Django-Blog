@@ -53,7 +53,7 @@ class Category(MPTTModel):
 class Blog(models.Model):
 
     STATUS = { #seçim
-
+        ('New','Yeni'),
         ('True','Evet'),
         ('False','Hayır'),
     }

@@ -1,5 +1,5 @@
 {% extends 'homebase.html' %}
-{% block title %} {{ profile.user.username }} Content {% endblock %}
+{% block title %} {{ profile.user.username }} Blogs {% endblock %}
 {% block keywords %} {{ settings.keywords }}  {% endblock %}
 {% block decription %} {{ settings.decription }}  {% endblock %}
 
@@ -16,10 +16,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="content">
-                        <h1 class="page-name" style="color: #0c0c0c">User contents </h1>
+                        <h1 class="page-name" style="color: #0c0c0c">User blogs </h1>
                         <ol class="breadcrumb">
                             <li><a href="/">Anasayfa</a></li>
-                            <li class="active">User contents</li>
+                            <li class="active">User blogs</li>
                         </ol>
                     </div>
                 </div>
@@ -48,7 +48,8 @@
                     <div class="aside-widget">
                         <div class="dashboard-wrapper dashboard-user-profile">
                             <div class="section-title">
-                                <h2 class="title">User Contents  <a class="primary-button" href="/user/addcontent" style="border-radius: 30px">Add Content</a></h2>
+                                <h2 class="title">User Contents <a class="primary-button" href="/user/addblog"
+                                                                   style="border-radius: 30px">Add Blog</a></h2>
                             </div>
 
                             <div class="table-responsive">
@@ -66,30 +67,32 @@
 
                                         <th>Image</th>
                                         <th>Title</th>
-                                        <th>Type</th>
-                                        <th>Menu</th>
+                                        <th>Description</th>
+                                        <th>Category</th>
                                         <th>Gallery</th>
                                         <th>Status</th>
                                         <th>Date</th>
                                         <th></th>
                                         <th></th>
                                     </tr>
-                                    {% for rs in contents %}
+                                    {% for rs in blogs %}
                                         <tr>
                                             <td>
-                                                <a href="/content/{{ rs.id }}/{{ rs.slug }}">
-                                                <img src="{{ rs.image.url }}" style="height: 50px;">
+                                                <a href="/blog/{{ rs.id }}/{{ rs.slug }}">
+                                                    <img src="{{ rs.image.url }}" style="height: 50px;">
                                                 </a>
                                             </td>
                                             <td>
-                                                <a href="/content/{{ rs.id }}/{{ rs.slug }}">
-                                                {{ rs.title }}
+                                                <a href="/blog/{{ rs.id }}/{{ rs.slug }}">
+                                                    {{ rs.title }}
                                                 </a>
                                             </td>
-                                            <td>{{ rs.type }}</td>
-                                            <td>{{ rs.menu }}</td>
+                                            <td>{{ rs.description }}</td>
+                                            <td>{{ rs.category }}</td>
                                             <td>
-                                                <a type="button" class="btn btn-default" href="javascript:;" onclick="window.open('/user/contentaddimage/{{ rs.id }}','gallery','height=600,with=800,top=50,left=150')"><i class="fa fa-image" aria-hidden="true" ></i></a>
+                                                <a type="button" class="btn btn-default" href="javascript:;"
+                                                   onclick="window.open('/user/blogaddimage/{{ rs.id }}','gallery','height=600,with=800,top=50,left=150')"><i
+                                                        class="fa fa-image" aria-hidden="true"></i></a>
 
                                             </td>
                                             <td>
@@ -105,10 +108,16 @@
                                             </td>
 
                                             <td>{{ rs.create_at }}</td>
-                                            <td><a type="button" class="btn btn-default" href="/user/contentedit/{{ rs.id }}"><i class="tf-pencil2" aria-hidden="true"></i></a></td>
+                                            <td><a type="button" class="btn btn-default"
+                                                   href="/user/blogedit/{{ rs.id }}"><i class="tf-pencil2"
+                                                                                           aria-hidden="true"></i></a>
+                                            </td>
                                             <td>
                                                 <div class="btn-group" role="group">
-                                                    <a type="button" class="btn btn-default" href="/user/contentdelete/{{ rs.id }}" onclick="return confirm('Will be Delete ! are you sure?')"><i class="tf-ion-close" aria-hidden="true" ></i></a>
+                                                    <a type="button" class="btn btn-default"
+                                                       href="/user/blogdelete/{{ rs.id }}"
+                                                       onclick="return confirm('Will be Delete ! are you sure?')"><i
+                                                            class="tf-ion-close" aria-hidden="true"></i></a>
                                                 </div>
                                             </td>
                                         </tr>
@@ -130,9 +139,6 @@
         <!-- /container -->
     </div>
     <!-- /SECTION -->
-
-
-
 
 
 {% endblock %}

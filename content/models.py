@@ -10,6 +10,8 @@ from django.utils.safestring import mark_safe
 from mptt.fields import TreeForeignKey
 from mptt.models import MPTTModel
 
+from blog.models import Blog, Category
+
 
 class Menu(MPTTModel):
 
@@ -99,7 +101,7 @@ class ContentForm(ModelForm):
             'slug'   : TextInput(attrs={'class': 'form-control','placeholder':'slug'}),
             'description'   : TextInput(attrs={'class': 'form-control','placeholder':'description' }),
             'keywords'   : TextInput(attrs={'class': 'form-control','placeholder':'keywords' }),
-            'type'      : Select(attrs={'class': 'form-control','placeholder':'city'},choices=TYPE),
+            'type'      : Select(attrs={'class': 'form-control','placeholder':'city'}),
             'image'     : FileInput(attrs={'class': 'form-control', 'placeholder': 'image', }),
             'detail'   : CKEditorWidget(), #ckeditor input
 
@@ -109,3 +111,26 @@ class ContentImageForm(ModelForm):
     class Meta:
             model=CImages
             fields = ['title','image']
+
+
+
+class BlogForm(ModelForm):
+    class Meta:
+        model = Blog
+        fields = ('category','title','slug' , 'description','keywords','image','detail')
+        widgets = {
+            'title'     : TextInput(attrs={'class': 'form-control','placeholder':'title'}),
+            'slug'   : TextInput(attrs={'class': 'form-control','placeholder':'slug'}),
+            'description'   : TextInput(attrs={'class': 'form-control','placeholder':'description' }),
+            'keywords'   : TextInput(attrs={'class': 'form-control','placeholder':'keywords' }),
+            'category'      : Select(attrs={'class': 'form-control'},choices=TYPE),
+            'image'     : FileInput(attrs={'class': 'form-control', 'placeholder': 'image', }),
+            'detail'   : CKEditorWidget(), #ckeditor input
+
+        }
+
+class BlogImageForm(ModelForm):
+    class Meta:
+        model=CImages
+        fields = ['title','image']
+

@@ -6,8 +6,10 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
-from blog.models import Category, Comment
-from content.models import Menu, Content, ContentForm, CImages, ContentImageForm
+from django.urls import reverse
+
+from blog.models import Category, Comment, Blog, Images
+from content.models import Menu, Content, ContentForm, CImages, ContentImageForm, BlogForm, BlogImageForm
 from home.models import UserProfile
 from user.forms import UserUpdateForm, ProfileUpdateForm
 
@@ -187,3 +189,105 @@ def contentaddimage(request,id):
             'images':images,
         }
         return render(request,'content_gallery.html',context)
+
+@login_required(login_url='/login') # Check login
+def blogs(request):
+    category = Category.objects.all()
+    current_user = request.user
+    blogs = Blog.objects.filter(user_id=current_user.id)
+    form=ContentForm()
+    context = {
+        'category': category,
+        'blogs': blogs,
+    }
+    return render(request, 'user_blogs.html', context)
+
+@login_required(login_url='/login') # Check login
+def addblog(request):
+    if request.method == 'POST':  # form post edildi ise
+        form = BlogForm(request.POST,request.FILES) #dosya yüklediğimiz için gerekli
+        if form.is_valid(): #control
+            current_user = request.user
+            data =Blog() #model ile bağlantı
+            data.user_id=current_user.id
+            data.title = form.cleaned_data['title']
+            data.keywords = form.cleaned_data['keywords']
+            data.description = form.cleaned_data['description']
+            data.image = form.cleaned_data['image']
+            data.category = form.cleaned_data['category']
+            data.slug = form.cleaned_data['slug']
+            data.detail = form.cleaned_data['detail']
+            data.status = 'New'
+            data.save()
+            messages.success(request, "Your blog ınserted successfully")
+            return HttpResponseRedirect('/user/blogs')
+        else:
+            messages.error(request, 'Content Form Error :'+str(form.errors))
+            return HttpResponseRedirect('/user/addblog')
+    else:
+        category = Category.objects.all()
+        form =BlogForm()
+        context ={
+            'category':category,
+            'form':form,
+        }
+
+        return render(request,'user_addblog.html',context)
+
+@login_required(login_url='/login') # Check login
+def blogdelete(request,id):
+    current_user = request.user
+    Blog.objects.filter(id=id,user_id=current_user.id).delete()
+    messages.success(request, 'blog deleted...')
+    return HttpResponseRedirect('/user/blogs')
+
+@login_required(login_url='/login') # Check login
+def blogedit(request,id):
+    blog = Blog.objects.get(id=id)
+    if request.method == 'POST':
+        form = BlogForm(request.POST,request.FILES,instance = blog)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your blog updated successfully")
+            return HttpResponseRedirect('/user/blogs')
+        else:
+            messages.success(request, 'Blog Form Error:'+str(form.errors))
+            return HttpResponseRedirect('/user/blogedit/'+str(id))
+    else:
+        category =Category.objects.all()
+        form = BlogForm(instance=blog) #formu instancela dolduruyor
+        context ={
+            'category':category,
+            'form':form,
+        }
+        return render(request,'user_addblog.html',context)
+
+@login_required(login_url='/login') # Check login
+def blogaddimage(request,id):
+    if request.method == 'POST':  # form post edildi ise
+        lasturl = request.META.get('HTTP_REFERER')
+        form = BlogImageForm(request.POST,request.FILES) #dosya yüklediğimiz için gerekli
+        if form.is_valid(): #control
+            data =Images() #model ile bağlantı
+
+            data.title = form.cleaned_data['title']
+            data.content_id = id
+            data.image = form.cleaned_data['image']
+
+            data.save()
+            messages.success(request, "Your image has been successfully uploaded")
+            return HttpResponseRedirect(lasturl)
+        else:
+            messages.error(request, 'Form Error :'+str(form.errors))
+            return HttpResponseRedirect(lasturl)
+    else:
+        blog = Blog.objects.get(id =id)
+        images =Images.objects.filter(blog_id=id)
+        form =BlogImageForm()
+        context ={
+            'blog':blog,
+            'form':form,
+            'images':images,
+        }
+        return render(request,'blog_gallery.html',context)
+
